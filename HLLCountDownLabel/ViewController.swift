@@ -14,32 +14,34 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //初始化计时器label, 
-        let lbl = HLLCountDownLabel(with: 60000, frame: CGRect(x: 20, y: 100, width: 200, height: 44))
+        let lbl = HLLCountDownLabel(with: 6, frame: CGRect(x: 20, y: 100, width: 200, height: 44))
         //设置分割符号
         lbl.seperateString = "-"
         //设置显示格式
-        lbl.format = .ddhhmmss
+        lbl.format = .ss
         //开始倒计时
         lbl.resumeTimer()
         //获取倒计时的剩余时间和总时间, 不要做复杂操作, 这个回调可能非常频繁
-        lbl.currentRemains = {remains, total in
+        lbl.currentRemains = {remains, total, isFinished in
             //remains: 剩余时间
             //total: 总时间
-            
+            //isFinished: 定时器是否结束
         }
         //是否隐藏文字描述
         lbl.isDesHidden = false
+        //定时器结束时显示的文字
+        lbl.finishedText = "finished"
+
         //设置文字对齐方法
         lbl.textAlignment = .center
+        
         //添加到父控件
         view.addSubview(lbl)
         //暂停定时器
 //        lbl.suspendTimer()
         //取消定时器, 取消后不开再次开启
 //        lbl.candelTimer()
-        
-        
-        
+     
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

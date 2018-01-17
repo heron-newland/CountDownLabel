@@ -29,14 +29,17 @@ A CountDown label
 		 lbl.resumeTimer()
 		 
 		 //获取倒计时的剩余时间和总时间, 不要做复杂操作, 这个回调可能非常频繁
-		 lbl.currentRemains = {remains, total in
-		 //remains: 剩余时间
-		 //total: 总时间
-		 }
+		 lbl.currentRemains = {remains, total, isFinished in
+            //remains: 剩余时间
+            //total: 总时间
+            //isFinished: 定时器是否结束
+        }
 		 
 		 //是否隐藏文字描述, 如果不隐藏只有在中文状态才会显示日,时,分,秒等描述
 		 lbl.isDesHidden = false
-		 
+		  //定时器结束时显示的文字
+        lbl.finishedText = "finished"
+        
 		 //设置文字对齐方法
 		 lbl.textAlignment = .center
 		 

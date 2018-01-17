@@ -85,7 +85,11 @@ class HLLCountDownLabel: UILabel {
     var seperateString:String = ":"
     
     //当前剩余时间
-    var currentRemains: ((_ remains: UInt, _ total: UInt) -> (Void))?
+    var currentRemains: ((_ remains: UInt, _ total: UInt, _ isFinished: Bool) -> (Void))?
+    //倒计时否结束后显示的文字
+    var finishedText: String?
+
+
     
     private var originTime: UInt = 0
     //系统语言是汉语就显示汉字, 否则显示英文
@@ -173,22 +177,25 @@ class HLLCountDownLabel: UILabel {
             if self.time == 0 {
                 self.time = 0
                 self.candelTimer()
+                DispatchQueue.main.sync {
+                    if self.finishedText != nil {
+                    self.text = self.finishedText
+                    }
+                }
                 return
             }
-            print(Thread.current)
+           
             self.time -= 1
             
             DispatchQueue.main.sync {
                 self.text = self.convert(time: self.time).replacingOccurrences(of: self.seperate, with: self.seperateString)
                 if self.currentRemains != nil {
-                    self.currentRemains!(self.time, self.originTime)
+                    self.currentRemains!(self.time, self.originTime, self.time == 0)
                 }
             }
             
         }
-        timer.setCancelHandler {
-            
-        }
+        
         
         var repeating:DispatchTimeInterval = .seconds(1)
         
